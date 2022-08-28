@@ -34,6 +34,18 @@ Vehicle.findById = function (driver_id, result) {
     });   
 };
 
+Vehicle.findAll = function ( result) {
+    dbConn.query("Select * from vehicle", function (err, res) {
+        if(err) {
+            console.log("error: ", err);
+            result(err, null);
+        }
+        else{
+            result(null, res);
+        }
+    });
+};
+
 Vehicle.update = function(id, vehicle, result){
   dbConn.query("UPDATE vehicle SET driver_id=?,plate=?,model=?,type=?,capacity=?,creation_date=? WHERE id = ?", [vehicle.driver_id,vehicle.plate,vehicle.model,vehicle.type,vehicle.capacity,vehicle.creation_date, id], function (err, res) {
         if(err) {

@@ -17,10 +17,18 @@ exports.create = function(req, res) {
     }
 };
 
+exports.findByDriverId = function(req, res) {
+    Vehicle.findByDriverId(req.params.driver_id, function(err, vehicle) {
+        if (err)
+        res.send(err);
+        res.json(vehicle);
+    });
+};
+
 exports.findById = function(req, res) {
     Vehicle.findById(req.params.id, function(err, vehicle) {
         if (err)
-        res.send(err);
+            res.send(err);
         res.json(vehicle);
     });
 };

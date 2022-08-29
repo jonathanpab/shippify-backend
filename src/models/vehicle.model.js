@@ -22,8 +22,9 @@ Vehicle.create = function (newDoc, result) {
         }
     });           
 };
-Vehicle.findById = function (driver_id, result) {
-    dbConn.query("Select * from vehicle where driver_id = ? ", driver_id, function (err, res) {
+
+Vehicle.findByDriverId = function (driver_id, result) {
+    dbConn.query("Select * from vehicle where driver_id = ?", driver_id, function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(err, null);
@@ -32,6 +33,18 @@ Vehicle.findById = function (driver_id, result) {
             result(null, res);
         }
     });   
+};
+
+Vehicle.findById = function (id, result) {
+    dbConn.query("Select * from vehicle where id = ?", id, function (err, res) {
+        if(err) {
+            console.log("error: ", err);
+            result(err, null);
+        }
+        else{
+            result(null, res);
+        }
+    });
 };
 
 Vehicle.findAll = function ( result) {

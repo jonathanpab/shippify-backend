@@ -34,7 +34,7 @@ exports.findById = function(req, res) {
 };
 
 exports.findAll = function(req, res) {
-    Vehicle.findAll( function(err, vehicle) {
+    Vehicle.findAll( req.params, function(err, vehicle) {
         if (err)
         res.send(err);
         res.json(vehicle);

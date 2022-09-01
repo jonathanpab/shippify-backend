@@ -47,8 +47,11 @@ Vehicle.findById = function (id, result) {
     });
 };
 
-Vehicle.findAll = function ( result) {
-    dbConn.query("Select * from vehicle", function (err, res) {
+Vehicle.findAll = function ( params, result) {
+    const offset = params.page && params.limit ? params.page * params.limit : 10;
+    const limit = params.limit ? Number(params.limit) : 10;
+
+    dbConn.query("Select * from vehicle LIMIT ? OFFSET ?", [ limit, offset] , function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(err, null);
@@ -71,8 +74,6 @@ Vehicle.update = function(id, vehicle, result){
 };
 
 Vehicle.delete = function(id, result){
-    console.log("id",id);
-
     dbConn.query("DELETE FROM vehicle WHERE id = ?", [id], function (err, res) {
         if(err) {
             console.log("error: ", err);
